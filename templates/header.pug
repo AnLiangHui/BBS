@@ -1,0 +1,16 @@
+nav.navbar.navbar-expand.navbar-light
+  script var currUser = !{JSON.stringify(user)}
+
+  .container-fluid
+    a.navbar-brand(href='/') BBS
+    .collapse.navbar-collapse.flex-row-reverse
+      ul.navbar-nav.float-end
+        if user
+          li.nav-item: a.nav-link(href="/user/" + user.id) hi, #[span(class="login-user")= user.email]
+          li.nav-item
+            a.nav-link(href='/logout') Logout
+        else
+          li.nav-item
+            a.nav-link(href='/login') Login
+          li.nav-item
+            a.nav-link(href='/register') Register

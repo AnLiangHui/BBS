@@ -1,0 +1,10 @@
+extends basic-layout.pug
+
+block content
+  h2 Please Input Your Email
+  form(action="/forgot" method="post").col-md-4.justify-content-md-center
+    //- input(type="hidden" name="next" value=referer || '/')
+    .mb-3
+      label.form-label(for='email') Email address
+      input#email.form-control(type='email' name='email')
+    button.btn.btn-primary(type='submit') Submit

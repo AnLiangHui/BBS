@@ -1,0 +1,36 @@
+extends basic-layout.pug
+
+block content
+  h2 Login
+  form(action="/login" method="post").col-md-4.justify-content-md-center
+    input(type="hidden" name="next" value=referer || '/')
+    .mb-3
+      label.form-label(for='email') Email address
+      input#email.form-control(type='email' name='email')
+    .mb-3
+      label.form-label(for='password') Password
+      input#password.form-control(type='password' name='password')
+    .mb-3
+      label.form-label(for='captcha') Captcha
+      div.input-group.mb-3
+        span.input-group-text
+          img(src="/captcha", alt="captcha")
+        input#captcha.form-control(type='text' name='captcha')
+
+    button.btn.btn-primary(type='submit') Submit
+    |
+    |
+    a(href="/forgot") Forgot Password?
+
+  script.
+    $('form').submit(function(e) {
+      $.post('/login', $(this).serialize()).then(() => {
+        history.back()
+      }, (res) => {
+        //- console.log(res)
+        $('img').attr('src', '/captcha?t=' + Date.now())
+        alert(res.responseJSON.msg)
+      })
+
+      return false
+    })

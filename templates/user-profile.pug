@@ -1,0 +1,30 @@
+extends basic-layout.pug
+
+
+block content
+  h2 用户信息
+    img(src=`/upload/${currUser.avatar}`, alt="")
+    if user.email == currUser.email
+      a(href="/change-profile") 修改我的信息
+    p 用户名：#{currUser.email}
+    p 注册时间：#{new Date(currUser.createAt).toLocaleString()}
+
+
+  h3 该用户发过的帖子
+  each post in posts
+    div.row.mb-3
+      a(href="/post/" + post.id title=post.email).col.flex-grow-0.flex-shrink-0.rounded: img(width="50" height="50" src='/upload/' + post.avatar)
+      div.col
+        a(href="/post/" + post.id)= post.title
+        p.fw-light.text-end: span #{new Date(post.createAt).toLocaleString()}
+  else
+    p 该用户暂时没发过帖子
+
+
+  h3 该用户回复过的帖子
+  each comment in comments
+    div.row.mb-3
+      h6: a(href="/post/" + comment.postId)= comment.title
+      p= comment.comment
+  else
+    p 该用户暂时没回复过帖子

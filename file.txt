@@ -1,0 +1,5 @@
+insert into users values ('c.@qq.com', '123', 'f', 28, null);
+insert into users values ('c.@qq.com', '123', 'f', 28, null);
+insert into users values ('c.@qq.com', '123', 'f', 28, null);
+insert into users values ('c.@qq.com', '123', 'f', 28, null);
+insert into users values ('c.@qq.com', '123', 'f', 28, null);

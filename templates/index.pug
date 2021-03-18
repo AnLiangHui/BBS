@@ -1,0 +1,31 @@
+extends basic-layout.pug
+
+block content
+  div.clearfix.mb-3
+    a(href="/post").float-end Add Post
+  each post in posts
+    div.row.mb-3
+      a(href="/user/" + post.userId title=post.email).col.flex-grow-0.flex-shrink-0.rounded: img(width="50" height="50" src='/upload/' + post.avatar)
+      div.col
+        a(href="/post/" + post.id)= post.title
+        p.fw-light.text-end
+          if user && user.id == post.userId
+            a.btn.btn-primary(href=`/post/${post.id}/delete`) 删除
+          span #{new Date(post.createAt).toLocaleString()}
+  else
+    p 网站暂时没帖子
+
+  nav
+    ul.pagination
+      li.page-item(class={disabled: pages.currPage == 1})
+        a.page-link(href=`/?p=${pages.currPage - 1}`) Prev
+      each page in Array(pages.pageCount).fill(0).map((_, idx) => idx + 1)
+        li.page-item(class={active: page == pages.currPage})
+          a.page-link(href=`/?p=${page}`)= page
+      li.page-item(class={disabled: pages.currPage == pages.pageCount})
+        a.page-link(href=`/?p=${+pages.currPage + 1}`) Next
+
+  //- ul.list-group.list-group-flush
+  //-   each post in posts
+  //-     li.list-group-item
+  //-       a(href="/post/" + post.id)= post.title

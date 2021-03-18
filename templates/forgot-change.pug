@@ -1,0 +1,13 @@
+extends basic-layout.pug
+
+block content
+  h2 修改用户 #{user.email} 的密码
+  form(action="" method="post").col-md-4.justify-content-md-center
+    //- input(type="hidden" name="next" value=referer || '/')
+    .mb-3
+      label.form-label(for='password') New Password
+      input#password.form-control(type='password' name='password')
+    .mb-3
+      label.form-label(for='password2') Repeat New Password
+      input#password2.form-control(type='password' name='password2')
+    button.btn.btn-primary(type='submit') Submit

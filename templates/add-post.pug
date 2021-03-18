@@ -1,0 +1,15 @@
+extends basic-layout.pug
+
+block content
+  if user
+    h2 Add Post
+    form(action="/post" method="post").col-md-4.justify-content-md-center
+      .mb-3
+        label.form-label(for='title') Post Title
+        input#title.form-control(type='text' name='title')
+      .mb-3
+        label.form-label(for='detail') Post Detail
+        textarea#detail.form-control(name='detail')
+      button.btn.btn-primary(type='submit') Submit
+  else
+    p 要先#[a(href="/login") 登陆]才能发贴

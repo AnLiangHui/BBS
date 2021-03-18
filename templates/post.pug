@@ -1,0 +1,47 @@
+extends basic-layout.pug
+
+block content
+  h2= post.title
+  p= post.detail
+
+  div.comments
+    each comment in comments
+      div.row.mb-3
+        a.col.flex-grow-0.flex-shrink-0(href='/user/' + comment.userId): img(width="50" height="50" src='/upload/' + comment.avatar).rounded
+        div.col
+          p= comment.detail
+          p.fw-light.text-end #[a(href='/user/' + comment.userId)= comment.email] • #{new Date(comment.commetTime).toLocaleString()}
+    else
+      div.row.mb-3
+        div.col
+          p 暂时没有人发表评论
+
+  hr
+
+  if user
+    form(id="comment-form" action="/comment" method="post").col-md-4.justify-content-md-center
+      input(type="hidden" name="postId" value=post.id)
+      .mb-3
+        label.form-label(for='detail') Leave a Comment
+        textarea#detail.form-control(name='detail')
+      button.btn.btn-primary(type='submit') Submit
+  else
+    p 想发表评论？试试#[a(href="/login") 登陆]或#[a(href="/register") 注册]
+
+
+  script.
+    $("#comment-form").submit(function(e) {
+      $.post('/comment', $(this).serialize()).then(() => {
+        $('.comments').append(`
+          <div class="row mb-3"><a class="col flex-grow-0 flex-shrink-0" href="/user/7"><img class="rounded" width="50" height="50" src="/upload/${currUser.avatar}"></a>
+            <div class="col">
+              <p>${$('#detail').val()}</p>
+              <p class="fw-light text-end"><a href="/user/7">${$(".login-user").text()}</a> • ${new Date().toLocaleString()}</p>
+            </div>
+          </div>
+        `)
+        $('#detail').val('')
+      })
+
+      return false
+    })

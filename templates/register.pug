@@ -1,0 +1,23 @@
+extends basic-layout.pug
+
+block content
+  h2 Register
+  form(action="/register" enctype="multipart/form-data" method="post").col-md-4.justify-content-md-center
+    .mb-3
+      label.form-label(for='email') Email address
+      input#email.form-control(type='email' name='email')
+    .mb-3
+      label.form-label(for='password') Password
+      input#password.form-control(type='password' name='password')
+    .mb-3
+      label.form-label(for='gender') Gender
+      div.form-check
+        input.form-check-input#genderf(type="radio" name="gender" value="f")
+        label.form-check-label(for="genderf") Female
+      div.form-check
+        input.form-check-input#genderm(type="radio" name="gender" value="m")
+        label.form-check-label(for="genderm") Male
+    .mb-3
+      label.form-label(for='avatar') Avatar
+      input#avatar.form-control(type='file' name='avatar')
+    button.btn.btn-primary(type='submit') Submit
